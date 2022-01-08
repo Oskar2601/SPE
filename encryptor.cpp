@@ -4,7 +4,6 @@
 #include <string>
 
 #define ENCRYPTFILE "Encrypted.cfd"
-#define INPUTFILE "FileToEncrypt.txt"
 
 typedef unsigned char BYTE; 
 
