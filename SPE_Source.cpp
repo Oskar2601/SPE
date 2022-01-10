@@ -55,7 +55,6 @@ int main () {
    std::cin >> std::hex >> input;
    salt = input;
    std::cout << std::endl;
-   std::cout << salt << std::endl;
 
    std::cin.unsetf(std::ios::dec);
    std::cin.unsetf(std::ios::hex);
@@ -80,8 +79,6 @@ int main () {
       fileBuffer[i] = inputFile.get();
       i++;
    }
-
-   std::cout << "file size: " << length << std::endl;
 
    for(int i = 0; i < length; i++) {
       encryptFileBuffer[i] = saltFunc(salt, fileBuffer[i]);
