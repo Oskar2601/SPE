@@ -11,7 +11,7 @@ g++ -o SPE.exe SPE_Source.cpp
 
 ## Usage
 
-Run the executable (SPE.exe), type in the file name. (File must be in the same directory as the exe), pick a salt. must be a hexadecimal (i.e. 0xA2) and make sure to remember this hexadecimal key. If you want to decrypt the file just run SPE.exe again pick the file and write in the salt that you have chosen. 
+Run the executable (SPE.exe), type in the file name. (File must be in the same directory as the exe), pick a salt. must be a hexadecimal or binary. (i.e. 0xA2 or 0b10100010) and make sure to remember this hexadecimal key. If you want to decrypt the file just run SPE.exe again pick the file and write in the salt that you have chosen. 
 
 Do not use this software to encrypt any of your personal files as this could be cracked in a millisecond if you know what you're doing. I will be improving upon this. Just use this for educational purposes.
 
