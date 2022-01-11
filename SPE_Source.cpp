@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cstring>
 #include <string>
+#include <windows.h>
 
 #define DEFAULTFILE "default.spe"
 
@@ -17,12 +18,26 @@ char saltFunc(BYTE salt, char chr) {
    return chr;
 }
 
+void outputLogo() {
+   std::cout << "  /$$$$$$  /$$$$$$$  /$$$$$$$$" << std::endl;
+   std::cout << " /$$__  $$| $$__  $$| $$_____/" << std::endl;
+   std::cout << "| $$  \\__/| $$  \\ $$| $$      " << std::endl;
+   std::cout << "|  $$$$$$ | $$$$$$$/| $$$$$   " << std::endl;
+   std::cout << " \\____  $$| $$____/ | $$__/   " << std::endl;
+   std::cout << " /$$  \\ $$| $$      | $$      " << std::endl;
+   std::cout << "|  $$$$$$/| $$      | $$$$$$$$" << std::endl;
+   std::cout << " \\______/ |__/      |________/" << std::endl << std::endl << std::endl;
+}
+
 int main () {
    unsigned int length;
    BYTE salt = 0b00000000;
    std::ifstream inputFile;
    std::ofstream encryptFile;
    std::string fileName;
+
+   system("Color 05");
+   outputLogo();
 
    while(true) {
       std::cout << "input file name: ";
@@ -50,7 +65,7 @@ int main () {
       }
    }
 
-   std::cout << "enter salt (one byte hexadecimal i.e. 0xA2): ";
+   std::cout << "enter salt (one byte hexadecimal or binary i.e. 0xA2 or 0b10100010): ";
    int input;
    std::cin >> std::hex >> input;
    salt = input;
@@ -89,5 +104,6 @@ int main () {
    encryptFile.close();
    delete[] encryptFileBuffer;
    delete[] fileBuffer;
+   system("pause");
    return 0;
 }
