@@ -3,10 +3,16 @@
 #include <cstring>
 #include <string>
 #include <windows.h>
+#include <iomanip>
 
 #define DEFAULTFILE "default.spe"
 
-typedef unsigned char BYTE; 
+
+typedef unsigned char BYTE;
+
+using std::cout;
+using std::cin;
+using std::endl;
 
 char saltFunc(BYTE salt, char chr) {
    for(int i = 0; i < 8; i++) {
@@ -19,34 +25,38 @@ char saltFunc(BYTE salt, char chr) {
 }
 
 void outputLogo() {
-   std::cout << "  /$$$$$$  /$$$$$$$  /$$$$$$$$" << std::endl;
-   std::cout << " /$$__  $$| $$__  $$| $$_____/" << std::endl;
-   std::cout << "| $$  \\__/| $$  \\ $$| $$      " << std::endl;
-   std::cout << "|  $$$$$$ | $$$$$$$/| $$$$$   " << std::endl;
-   std::cout << " \\____  $$| $$____/ | $$__/   " << std::endl;
-   std::cout << " /$$  \\ $$| $$      | $$      " << std::endl;
-   std::cout << "|  $$$$$$/| $$      | $$$$$$$$" << std::endl;
-   std::cout << " \\______/ |__/      |________/" << std::endl << std::endl << std::endl;
+   cout << "  /$$$$$$  /$$$$$$$  /$$$$$$$$" << endl;
+   cout << " /$$__  $$| $$__  $$| $$_____/" << endl;
+   cout << "| $$  \\__/| $$  \\ $$| $$      " << endl;
+   cout << "|  $$$$$$ | $$$$$$$/| $$$$$   " << endl;
+   cout << " \\____  $$| $$____/ | $$__/   " << endl;
+   cout << " /$$  \\ $$| $$      | $$      " << endl;
+   cout << "|  $$$$$$/| $$      | $$$$$$$$" << endl;
+   cout << " \\______/ |__/      |________/" << endl << endl << endl;
 }
 
 int main () {
    unsigned int length;
-   BYTE salt = 0b00000000;
+   BYTE salt = 0x00;
    std::ifstream inputFile;
    std::ofstream encryptFile;
    std::string fileName;
 
-   system("Color 05");
+   cin.unsetf(std::ios::dec);
+   cin.unsetf(std::ios::hex);
+   cin.unsetf(std::ios::oct);
+
+   system("Color 0A");
    outputLogo();
 
    while(true) {
-      std::cout << "input file name: ";
-      std::cin >> fileName;
+      cout << "input file name: ";
+      cin >> fileName;
 
       if(fileName == "e") {
          inputFile = std::ifstream(DEFAULTFILE, std::ifstream::in | std::ios::binary);
          if(inputFile.fail()) {
-            std::cout << "unable to open 'default.spe' are you sure that's a file?" << std::endl;
+            cout << "unable to open 'default.spe' are you sure that's a file?" << std::endl;
             continue;
          }
 
@@ -56,7 +66,7 @@ int main () {
 
       inputFile = std::ifstream(fileName, std::ifstream::in | std::ios::binary);
       if(inputFile.fail()){
-         std::cout << "failed to access file. are you sure you entered the correct file name?" << std::endl << std::endl;
+         cout << "failed to access file. are you sure you entered the correct file name?" << std::endl << std::endl;
       }
       else
       {
@@ -65,18 +75,11 @@ int main () {
       }
    }
 
-   std::cout << "enter salt (one byte hexadecimal or binary i.e. 0xA2 or 0b10100010): ";
-   int input;
-   std::cin >> std::hex >> input;
-   salt = input;
-   std::cout << std::endl;
-
-   std::cin.unsetf(std::ios::dec);
-   std::cin.unsetf(std::ios::hex);
-   std::cin.unsetf(std::ios::oct);
-
-   //std::cout << "input salt in hex with a prefix 0x so for example. 0xA2" << std::endl;
-   //std::cin >> std::hex >> salt;
+   unsigned int hex = 0;
+   cout << "enter salt (one byte hexadecimal with prefix (0x). i.e. 0xA2): ";
+   cin >> std::hex >> hex;
+   salt = hex;
+   cout << endl << "Picked: " << (int)salt << endl;
 
    inputFile.seekg(0, inputFile.end);
    length = inputFile.tellg();
