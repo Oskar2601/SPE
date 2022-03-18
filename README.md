@@ -1,5 +1,6 @@
 # SPE
-Strong. Protected, Encryption.
+**S**trong **P**rotected **E**ncryption.
+
 SPE is a small project I'm working on that let's you encrypt any of your files. Including Videos, executables, plain text, any file types.
 
 ## Installation
