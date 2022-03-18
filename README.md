@@ -14,7 +14,7 @@ g++ -std=c++17 -o SPE.exe main.cpp include/HashLib/sha256.cpp include/SPE_Lib/SP
 
 Run the executable (SPE.exe), type in the file name. (File must be in the same directory as the exe file can also be any type i.e. .jpg, .png, .exe), pick a salt. (just type in any characters or numbers but make sure to write them down so you dont forget them!) If you want to decrypt the file just run SPE.exe again pick the file and write in the salt that you have written down. 
 
-Do not use this software to encrypt any of your personal files as this could be cracked in a millisecond if you know what you're doing. I will be improving upon this. Just use this for educational purposes.
+I'm pretty sure this is really secure but don't take my word for it. there are a lot of smart people out there. I'm just saying this should be really difficult to crack.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
