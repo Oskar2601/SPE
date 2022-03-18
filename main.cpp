@@ -2,11 +2,6 @@
 #include <filesystem>
 #include <windows.h>
 #include <iostream>
-#include <fstream>
-#include <cstring>
-#include <string>
-#include <iomanip>
-#include <chrono>
 #include <string>
 
 #define DEFAULTFILE "default.spe"
