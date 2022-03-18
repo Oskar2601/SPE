@@ -4,14 +4,14 @@ SPE is a small project I'm working on that let's you encrypt any of your files. 
 
 ## Installation
 
-Just download the repository and compile with default flags
+Just download the repository and compile with these flags or you could just run the SPE.exe file.
 ```bash
-g++ -o SPE.exe SPE_Source.cpp
+g++ -std=c++17 -o SPE.exe main.cpp include/HashLib/sha256.cpp include/SPE_Lib/SPE_Lib.cpp -I include/
 ```
 
 ## Usage
 
-Run the executable (SPE.exe), type in the file name. (File must be in the same directory as the exe file can also be any type i.e. .jpg, .png, .exe), pick a salt. must be a hexadecimal. (i.e. 0xA2) **NOTE** it must have a prefix and make sure to remember this hexadecimal key. If you want to decrypt the file just run SPE.exe again pick the file and write in the salt that you have chosen. 
+Run the executable (SPE.exe), type in the file name. (File must be in the same directory as the exe file can also be any type i.e. .jpg, .png, .exe), pick a salt. (just type in any characters or numbers but make sure to write them down so you dont forget them!) If you want to decrypt the file just run SPE.exe again pick the file and write in the salt that you have written down. 
 
 Do not use this software to encrypt any of your personal files as this could be cracked in a millisecond if you know what you're doing. I will be improving upon this. Just use this for educational purposes.
 

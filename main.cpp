@@ -1,9 +1,13 @@
+#include <SPE_Lib/SPE_Lib.h>
+#include <filesystem>
+#include <windows.h>
 #include <iostream>
 #include <fstream>
 #include <cstring>
 #include <string>
-#include <windows.h>
 #include <iomanip>
+#include <chrono>
+#include <string>
 
 #define DEFAULTFILE "default.spe"
 
@@ -13,16 +17,6 @@ typedef unsigned char BYTE;
 using std::cout;
 using std::cin;
 using std::endl;
-
-char saltFunc(BYTE salt, char chr) {
-   for(int i = 0; i < 8; i++) {
-      if((salt >> i) & 1U) {
-         chr ^= 1UL << i;
-      }
-   }
-
-   return chr;
-}
 
 void outputLogo() {
    cout << "  /$$$$$$  /$$$$$$$  /$$$$$$$$" << endl;
@@ -36,15 +30,9 @@ void outputLogo() {
 }
 
 int main () {
-   unsigned int length;
-   BYTE salt = 0x00;
-   std::ifstream inputFile;
-   std::ofstream encryptFile;
    std::string fileName;
 
-   cin.unsetf(std::ios::dec);
-   cin.unsetf(std::ios::hex);
-   cin.unsetf(std::ios::oct);
+   SPE spe;
 
    system("Color 0A");
    outputLogo();
@@ -54,59 +42,32 @@ int main () {
       cin >> fileName;
 
       if(fileName == "e") {
-         inputFile = std::ifstream(DEFAULTFILE, std::ifstream::in | std::ios::binary);
-         if(inputFile.fail()) {
+         fileName = DEFAULTFILE;
+         if(!std::filesystem::exists(fileName)) {
             cout << "unable to open 'default.spe' are you sure that's a file?" << std::endl;
             continue;
          }
 
-         encryptFile = std::ofstream(DEFAULTFILE, std::ifstream::in | std::ios::binary);
          break;
       }
 
-      inputFile = std::ifstream(fileName, std::ifstream::in | std::ios::binary);
-      if(inputFile.fail()){
-         cout << "failed to access file. are you sure you entered the correct file name?" << std::endl << std::endl;
+      if(!std::filesystem::exists(fileName)){
+         cout << "failed to access file. are you sure you entered the correct file name?" << std::endl;
       }
       else
       {
-         encryptFile = std::ofstream(fileName, std::ifstream::in | std::ios::binary);
          break;
       }
    }
 
-   unsigned int hex = 0;
-   cout << "enter salt (one byte hexadecimal with prefix (0x). i.e. 0xA2): ";
-   cin >> std::hex >> hex;
-   salt = hex;
-   cout << endl << "Picked: " << (int)salt << endl;
+   std::string newKey;
+   cout << "enter a key (will be converted to sha256): ";
+   cin >> newKey;
+   spe.SetKey(newKey);
+   newKey.clear();
 
-   inputFile.seekg(0, inputFile.end);
-   length = inputFile.tellg();
-   inputFile.seekg(0, inputFile.beg);
+   spe.SpeEncryptFile(fileName);
 
-   std::string* names = new std::string[length];
-
-   char* fileBuffer = new char[length];
-   char* encryptFileBuffer = new char[length];
-   memset(fileBuffer, 0, length);
-   memset(encryptFileBuffer, 0, length);
-
-   while (inputFile.good()) { // just get file length in bytes.
-      static int i = 0;
-      fileBuffer[i] = inputFile.get();
-      i++;
-   }
-
-   for(int i = 0; i < length; i++) {
-      encryptFileBuffer[i] = saltFunc(salt, fileBuffer[i]);
-      encryptFile << encryptFileBuffer[i];
-   }
-
-   inputFile.close();
-   encryptFile.close();
-   delete[] encryptFileBuffer;
-   delete[] fileBuffer;
    system("pause");
    return 0;
 }

@@ -1,5 +1,6 @@
 {
    "files.associations": {
+      "*.vape": "lua",
       "xutility": "cpp",
       "iostream": "cpp",
       "algorithm": "cpp",
@@ -44,6 +45,8 @@
       "xmemory": "cpp",
       "xstddef": "cpp",
       "xstring": "cpp",
-      "xtr1common": "cpp"
+      "xtr1common": "cpp",
+      "iomanip": "cpp",
+      "random": "cpp"
    }
 }
